@@ -1,0 +1,109 @@
+
+
+Phases of Hacking
+
+	1. Reconnaissance (Information gathering)  - Gathering initial information about the target.
+		a. Passive Reconnaissance - No direct interaction with the target(e.g., WHOIS, DNS recon, Google hacking etc)
+		b. Active Reconnaissance - Direct interaction with the target(e.g., ping sweeps, port scanning)
+	2. Scanning – Identifying open ports, services, and vulnerabilities.
+	3. Gaining Access – Exploiting vulnerabilities to enter the system.
+	4. Maintaining Access – Establishing persistence within the target system.
+	5. Covering Tracks – Erasing evidence to avoid detection.
+
+Information Gathering 
+
+	Information gathering is the first and crucial step in penetration testing, as all subsequent phases depend on the data collected during this stage. This topic covers both passive and active information gathering using various tools and techniques to obtain as much information as possible about the target.
+Note : 
+	Active information gathering directly interacts with the target and may be detected, so it requires prior permission or authorization to ensure legality and avoid ethical violations.
+	
+	Key Techniques in Passive and Active Reconnaissance - What Information Are We Looking For?
+	
+	Passive Information Gathering
+		• Identifying IP addresses & DNS information.
+		• Identifying domain names, subdomains and domain ownership information.
+		• Identifying email addresses and social media profiles.
+		• Identifying web technologies being used on target sites.
+		
+	Active Information Gathering
+		• Discovering open ports on target systems.
+		• Learning about the internal infrastructure of a target network/organization.
+		• Enumerating information from target systems.
+	
+	
+Practical -  Passive Information Gathering - Website Recon and footprinting 
+	
+1.Host - (cmd)
+	
+	To get the IP address of a website, use the website URL and convert the domain name to an IP address using the built-in Kali Linux and other Linux OS:
+
+host <URL>
+	
+	## For the time-being - installed ubuntu for windows system 
+	
+	
+	
+	
+	
+	
+	
+	Host command help and options overview
+	
+	
+	The host command is a simple DNS lookup utility used in Linux (including Kali Linux) to resolve domain names into IP addresses and vice versa and can also retrieve other DNS-related information like name servers (NS), mail servers (MX), etc.
+	
+	Useful Options:
+		• host -t a <domain> → Lookup A (IPv4) records.
+		• host -t mx <domain> → Lookup mail servers.
+		• host -t ns <domain> → Lookup name servers.
+		• host <IP> → Reverse lookup (get domain from IP).
+	
+	Use in Passive Information Gathering:
+		• Helps identify the IP address of a target website without actively interacting with the server beyond DNS queries.
+		• Quick and stealthy—ideal for the passive recon phase.
+	
+	
+	
+	We are going to use two websites — hackersploit.org and zonetransfer.me — for our practical demonstrations.
+	
+	Domains: youtube.com, openai.com
+	
+	YouTube - 142.251.41.14 and Google's smtp Service.
+	
+	OpenAI 
+		Ip addresses - 104.18.33.45 and 172.64.154.1
+		Mx record - indicates OpenAI depends on Google's SMTP service for email handling
+		
+	
+	
+	In this demonstration, we used the host command to gather DNS-related information for two popular domains. This is part of passive information gathering, not active information gathering.
+	
+	
+	
+	
+
+	The domain hackersploit.org returned multiple IP addresses. Upon further investigation using the whois and Ipinfo website( Ipinfo) , AbuseIPDB(AbuseIPDB),it was confirmed that these IPs belong to Cloudflare.
+	
+	
+	
+	
+AbuseIPDB
+	
+	
+	
+	
+	
+	
+	List of Cloudflare IP ranges :
+	
+	
+	
+	
+	
+	Purpose of using Cloudflare: To improve security and performance. It protects against DDoS attacks, hides the real server IP, speeds up content delivery through its CDN, and provides features like SSL, bot protection, and a web application firewall (WAF).
+	
+	Conclusion from Using the host Command
+	By using the host command during passive information gathering, we were able to extract valuable DNS information about target domains like hackersploit.org and zonetransfer.me. This included:
+		• Multiple IPv4 and IPv6 addresses, indicating the use of a Content Delivery Network (CDN).
+		• Mail server (MX) records, revealing the domains' email infrastructure (e.g., Google Workspace).
+		• In the case of hackersploit.org, the IP addresses resolved to Cloudflare, confirmed via IP range analysis and WHOIS lookup.
+	
